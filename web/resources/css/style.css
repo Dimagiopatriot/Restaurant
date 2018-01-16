@@ -1,0 +1,147 @@
+@import url('https://fonts.googleapis.com/css?family=Hind');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:500');
+
+body {
+    padding: 0px;
+    margin: 0px;
+    background: url(/resources/img/background.jpg);
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.menu {
+    margin-top: 20px;
+    text-align: center;
+}
+
+a, a:visited, a:active, .language-btn {
+    color: white !important;
+    font-family: 'Hind', sans-serif;
+    font-size: 18px !important;
+    text-shadow: 1px 1px 2px black;
+    text-decoration: none !important;
+
+}
+.custom-hr{
+    border-top: 1px solid #000;
+}
+.welcome-title {
+    margin-top: 200px;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    font-size: 72px;
+    text-shadow: 1px 1px 15px #757575;
+
+}
+
+.server-error {
+    margin-top: 200px;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: 'Montserrat', sans-serif;
+    color: #AB3333;
+    font-size: 72px;
+    text-shadow: 1px 1px 15px #757575;
+
+}
+
+.my-title {
+    margin-top: 100px;
+    text-align: center;
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    font-size: 16px;
+    text-shadow: 1px 1px 15px #757575;
+
+}
+
+.text-primary {
+    color: #efebe9 !important;
+}
+
+.register {
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 10px;
+    margin-top: 80px;
+    padding: 10px 10px 20px 10px;
+    width: 80%;
+}
+
+.mytable table {
+    width: 1500px;
+}
+
+.mycont {
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 10px;
+    margin-top: 80px;
+    margin-left: 2.5%;
+    padding: 20px 10px 20px 10px;
+    width: 95%;
+
+}
+
+#text-primary {
+    color: #795548;
+}
+
+#text {
+    margin: 20px 0 40px 0;
+    font-size: 18px;
+    font-family: 'Montserrat', sans-serif;
+    color: #424242;
+    text-shadow: 1px 1px 10px #757575;
+}
+
+i {
+    float: center;
+    display: block;
+    width: 25px;
+}
+
+input br, br {
+    margin-bottom: 30px;
+}
+
+input {
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #424242;
+    width: 200px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.submit-button {
+    padding: 10px 20px 10px 20px;
+    margin: 10px 0px 0px 0px;
+    background: rgba(78, 52, 46, 0.7);
+    border-radius: 5px;
+    text-align: center;
+    border: none;
+    color: white;
+    text-shadow: 1px 1px 10px #757575;
+
+    font-family: 'Montserrat', sans-serif;
+}
+
+.my-pagination {
+    padding: 10px 20px 10px 20px;
+    margin: 10px 0px 0px 0px;
+    background: transparent;
+    border-radius: 5px;
+    text-align: center;
+    border: none;
+    color: white;
+    text-shadow: 1px 1px 10px #757575;
+
+    font-family: 'Montserrat', sans-serif;
+}
+
+.dropdown-menu, .language-btn {
+    text-align: center !important;
+    background: transparent !important;
+    margin: 0px !important;
+    padding: 0px !important;
+}
