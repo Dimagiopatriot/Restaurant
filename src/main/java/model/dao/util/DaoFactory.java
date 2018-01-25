@@ -1,13 +1,7 @@
 package model.dao.util;
 
-import model.dao.BillDao;
-import model.dao.DishDao;
-import model.dao.OrderDao;
-import model.dao.UserAuthDao;
-import model.dao.impl.BillDaoImpl;
-import model.dao.impl.DishDaoImpl;
-import model.dao.impl.OrderDaoImpl;
-import model.dao.impl.UserAuthDaoImpl;
+import model.dao.*;
+import model.dao.impl.*;
 
 public class DaoFactory {
 
@@ -33,5 +27,13 @@ public class DaoFactory {
 
     public UserAuthDao getUserAuthDao(){
         return UserAuthDaoImpl.getInstance();
+    }
+
+    public UserDao getUserDao() {
+        return UserDaoImpl.getInstance();
+    }
+
+    public ManyToOneDishDao getManyToOneDishDao(){
+        return ManyToOneDishDaoImpl.getInstance();
     }
 }

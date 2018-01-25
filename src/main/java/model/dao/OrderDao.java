@@ -8,9 +8,11 @@ import java.util.List;
 public interface OrderDao extends GenericDao<Order> {
     List<Order> selectByStatus(Order.Status status, int offset, int limit);
 
-    List<Order> selectAll();
+    List<Order> selectAll(int offset, int limit);
 
     List<Order> selectByUserId(int userId, int offset, int limit);
 
-    boolean updateStatus(Bill bill);
+    boolean updateStatus(Order order);
+
+    boolean updateBillPresence(Order order);
 }

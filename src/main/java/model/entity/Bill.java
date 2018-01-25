@@ -4,36 +4,49 @@ import java.util.Map;
 
 public class Bill {
 
+    private int id;
     private Map<Dish, Integer> portionsToDishMap;
     private float total;
     private Status status;
 
-    public enum Status{
+    public enum Status {
         PAYED, NOT_PAYED;
+
+        @Override
+        public String toString() {
+            return name().toLowerCase();
+        }
     }
 
-    public static class Builder{
+    public static class Builder {
+        int id;
         private Map<Dish, Integer> portionsToDishMap;
         private float total;
         private Status status;
+
+        public Builder addId(int id) {
+            this.id = id;
+            return this;
+        }
 
         public Builder addPortionsToDishMap(Map<Dish, Integer> portionsToDishMap) {
             this.portionsToDishMap = portionsToDishMap;
             return this;
         }
 
-        public Builder addTotal(float total){
+        public Builder addTotal(float total) {
             this.total = total;
             return this;
         }
 
-        public Builder addStatus(Status status){
+        public Builder addStatus(Status status) {
             this.status = status;
             return this;
         }
 
-        public Bill createCount(){
+        public Bill createBill() {
             Bill bill = new Bill();
+            bill.setId(id);
             bill.setPortionsToDishMap(portionsToDishMap);
             bill.setStatus(status);
             bill.setTotal(total);
@@ -65,13 +78,12 @@ public class Bill {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "Count{" +
-                "portionsToDishMap=" + portionsToDishMap +
-                ", total=" + total +
-                ", status=" + status +
-                '}';
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -81,6 +93,7 @@ public class Bill {
 
         Bill bill = (Bill) o;
 
+        if (id != bill.id) return false;
         if (Float.compare(bill.total, total) != 0) return false;
         if (portionsToDishMap != null ? !portionsToDishMap.equals(bill.portionsToDishMap) : bill.portionsToDishMap != null)
             return false;
@@ -89,9 +102,20 @@ public class Bill {
 
     @Override
     public int hashCode() {
-        int result = portionsToDishMap != null ? portionsToDishMap.hashCode() : 0;
+        int result = id;
+        result = 31 * result + (portionsToDishMap != null ? portionsToDishMap.hashCode() : 0);
         result = 31 * result + (total != +0.0f ? Float.floatToIntBits(total) : 0);
         result = 31 * result + (status != null ? status.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Bill{" +
+                "id=" + id +
+                ", portionsToDishMap=" + portionsToDishMap +
+                ", total=" + total +
+                ", status=" + status +
+                '}';
     }
 }

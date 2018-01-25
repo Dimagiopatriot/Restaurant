@@ -10,7 +10,7 @@ public interface BillDao extends GenericDao<Bill> {
 
     List<Bill> selectByStatus(Bill.Status status, int offset, int limit);
 
-    List<Bill> selectAll();
+    List<Bill> selectAll(int offset, int limit);
 
     List<Bill> selectByUserId(int userId, int offset, int limit);
 }

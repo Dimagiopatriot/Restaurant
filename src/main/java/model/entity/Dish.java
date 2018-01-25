@@ -2,6 +2,7 @@ package model.entity;
 
 public class Dish {
 
+    private int id;
     private String name;
     private String description;
     private float portionInGrams;
@@ -9,15 +10,26 @@ public class Dish {
     private DishType dishType;
 
     public enum DishType {
-        ENTREE, SECOND, DESSERT, DRINKS
+        ENTREE, SECOND, DESSERT, DRINKS;
+
+        @Override
+        public String toString() {
+            return name().toLowerCase();
+        }
     }
 
     public static class Builder {
+        private int id;
         private String name;
         private String description;
         private float portionInGrams;
         private float pricePerPortion;
         private DishType dishType;
+
+        public Builder addId(int id){
+            this.id = id;
+            return this;
+        }
 
         public Builder addName(String name) {
             this.name = name;
@@ -29,7 +41,7 @@ public class Dish {
             return this;
         }
 
-        private Builder addPortionInGrams(float portionInGrams) {
+        public Builder addPortionInGrams(float portionInGrams) {
             this.portionInGrams = portionInGrams;
             return this;
         }
@@ -46,6 +58,7 @@ public class Dish {
 
         public Dish createDish() {
             Dish dish = new Dish();
+            dish.setId(id);
             dish.setName(name);
             dish.setDescription(description);
             dish.setPortionInGrams(portionInGrams);
@@ -95,6 +108,14 @@ public class Dish {
         this.dishType = dishType;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -102,6 +123,7 @@ public class Dish {
 
         Dish dish = (Dish) o;
 
+        if (id != dish.id) return false;
         if (Float.compare(dish.portionInGrams, portionInGrams) != 0) return false;
         if (Float.compare(dish.pricePerPortion, pricePerPortion) != 0) return false;
         if (name != null ? !name.equals(dish.name) : dish.name != null) return false;
@@ -111,7 +133,8 @@ public class Dish {
 
     @Override
     public int hashCode() {
-        int result = name != null ? name.hashCode() : 0;
+        int result = id;
+        result = 31 * result + (name != null ? name.hashCode() : 0);
         result = 31 * result + (description != null ? description.hashCode() : 0);
         result = 31 * result + (portionInGrams != +0.0f ? Float.floatToIntBits(portionInGrams) : 0);
         result = 31 * result + (pricePerPortion != +0.0f ? Float.floatToIntBits(pricePerPortion) : 0);
@@ -122,7 +145,8 @@ public class Dish {
     @Override
     public String toString() {
         return "Dish{" +
-                "name='" + name + '\'' +
+                "id=" + id +
+                ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", portionInGrams=" + portionInGrams +
                 ", pricePerPortion=" + pricePerPortion +
