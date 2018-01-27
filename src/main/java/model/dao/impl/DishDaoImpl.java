@@ -11,9 +11,7 @@ import util.exception.DaoException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class DishDaoImpl implements DishDao {
 
@@ -26,6 +24,8 @@ public class DishDaoImpl implements DishDao {
     private final static String COLUMN_GRAM = "gram";
     private final static String COLUMN_PRICE = "price";
     private final static String COLUMN_DISH_TYPE = "dish_type";
+
+    private final static String COLUMN_PORTIONS = "portions";
 
     //queries
     private final static String SELECT_BY_ID_QUERY = "select * from dish where id=?";
@@ -113,8 +113,8 @@ public class DishDaoImpl implements DishDao {
     }
 
     @Override
-    public List<Dish> selectDishesForBill(int billId){
-        List<Dish> dishes = new ArrayList<>();
+    public Map<Dish, Integer> selectDishesForBill(int billId){
+        Map<Dish, Integer> dishes = new HashMap<>();
         try (JdbcConnection connection = connectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(SELECT_FOR_BILL_QUERY)) {
             statement.setInt(1, billId);
@@ -124,7 +124,8 @@ public class DishDaoImpl implements DishDao {
             if (resultSet.isBeforeFirst()) {
                 while (resultSet.next()) {
                     Dish dish = buildDish(resultSet);
-                    dishes.add(dish);
+                    int billPortions = resultSet.getInt(COLUMN_PORTIONS);
+                    dishes.put(dish, billPortions);
                 }
             }
         } catch (SQLException e) {
@@ -136,8 +137,8 @@ public class DishDaoImpl implements DishDao {
     }
 
     @Override
-    public List<Dish> selectDishesForOrder(int orderId){
-        List<Dish> dishes = new ArrayList<>();
+    public Map<Dish, Integer> selectDishesForOrder(int orderId){
+        Map<Dish, Integer> dishes = new HashMap<>();
         try (JdbcConnection connection = connectionManager.getConnection();
              PreparedStatement statement = connection.prepareStatement(SELECT_FOR_ORDER_QUERY)) {
             statement.setInt(1, orderId);
@@ -147,7 +148,8 @@ public class DishDaoImpl implements DishDao {
             if (resultSet.isBeforeFirst()) {
                 while (resultSet.next()) {
                     Dish dish = buildDish(resultSet);
-                    dishes.add(dish);
+                    int orderPortions = resultSet.getInt(COLUMN_PORTIONS);
+                    dishes.put(dish, orderPortions);
                 }
             }
         } catch (SQLException e) {

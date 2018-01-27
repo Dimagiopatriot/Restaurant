@@ -3,7 +3,7 @@ package model.service;
 import model.dao.util.DaoFactory;
 import model.entity.Dish;
 
-import java.util.List;
+import java.util.Map;
 
 public class DishService {
 
@@ -21,11 +21,11 @@ public class DishService {
         return Holder.INSTANCE;
     }
 
-    public List<Dish> selectDishesForBill(int billId){
+    public Map<Dish, Integer> selectDishesForBill(int billId){
         return daoFactory.getDishDao().selectDishesForBill(billId);
     }
 
-    public List<Dish> selectDishesForOrder(int orderId){
+    public Map<Dish, Integer> selectDishesForOrder(int orderId){
         return daoFactory.getDishDao().selectDishesForOrder(orderId);
     }
 }

@@ -2,9 +2,9 @@ package model.dao;
 
 import model.entity.Dish;
 
-import java.util.List;
+import java.util.Map;
 
 public interface DishDao extends GenericDao<Dish> {
-    List<Dish> selectDishesForBill(int billId);
-    List<Dish> selectDishesForOrder(int billId);
+    Map<Dish, Integer> selectDishesForBill(int billId);
+    Map<Dish, Integer> selectDishesForOrder(int billId);
 }

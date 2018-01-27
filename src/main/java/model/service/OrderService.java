@@ -5,6 +5,7 @@ import model.dao.util.DaoFactory;
 import model.entity.Order;
 import util.exception.DaoException;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -32,21 +33,62 @@ public class OrderService {
         return Holder.INSTANCE;
     }
 
-    //TODO: refactor dish return and add dishes to each bill in order service
     public List<Order> selectByStatus(Order.Status status, int offset, int limit) {
-        return daoFactory.getOrderDao().selectByStatus(status, offset, limit);
+        List<Order> orders = new ArrayList<>();
+        try {
+            connectionManager.startTransaction();
+            orders = daoFactory.getOrderDao().selectByStatus(status, offset, limit);
+            getDishesForOrders(orders);
+            connectionManager.commit();
+        } catch (DaoException e) {
+            connectionManager.rollback();
+            return orders;
+        }
+        return orders;
     }
 
     public List<Order> selectAll(int offset, int limit) {
-        return daoFactory.getOrderDao().selectAll(offset, limit);
+        List<Order> orders = new ArrayList<>();
+        try {
+            connectionManager.startTransaction();
+            orders = daoFactory.getOrderDao().selectAll(offset, limit);
+            getDishesForOrders(orders);
+            connectionManager.commit();
+        } catch (DaoException e) {
+            connectionManager.commit();
+            return orders;
+        }
+        return orders;
     }
 
     public List<Order> selectByUserId(int userId, int offset, int limit) {
-        return daoFactory.getOrderDao().selectByUserId(userId, offset, limit);
+        List<Order> orders = new ArrayList<>();
+        try {
+            connectionManager.startTransaction();
+            orders = daoFactory.getOrderDao().selectByUserId(userId, offset, limit);
+            getDishesForOrders(orders);
+            connectionManager.commit();
+        } catch (DaoException e) {
+            connectionManager.commit();
+            return orders;
+        }
+        return orders;
     }
 
     public Optional<Order> select(int id) {
-        return daoFactory.getOrderDao().select(id);
+        Optional<Order> orderOptional = daoFactory.getOrderDao().select(id);
+        try {
+            connectionManager.startTransaction();
+            if (orderOptional.isPresent()){
+                Order order = orderOptional.get();
+                order.setPortionsToDishMap(dishService.selectDishesForOrder(order.getId()));
+            }
+            connectionManager.commit();
+        } catch (DaoException e){
+            connectionManager.commit();
+            return orderOptional;
+        }
+        return orderOptional;
     }
 
     public boolean updateStatus(Order order) {
@@ -74,5 +116,11 @@ public class OrderService {
             return isCreated;
         }
         return isCreated;
+    }
+
+    private void getDishesForOrders(List<Order> orders) {
+        for (Order order : orders) {
+            order.setPortionsToDishMap(dishService.selectDishesForOrder(order.getId()));
+        }
     }
 }
