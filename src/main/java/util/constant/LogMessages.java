@@ -2,6 +2,8 @@ package util.constant;
 
 public interface LogMessages {
 
+    String ERROR_IN_DAO = "error in dao";
+
     String SELECT_BY_EMAIL_PASSWORD = "selectByEmailPassword()";
     String UPDATE = "update()";
     String INSERT = "insert()";
