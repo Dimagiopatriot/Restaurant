@@ -3,6 +3,7 @@ package model.service;
 import model.dao.util.DaoFactory;
 import model.entity.Dish;
 
+import java.util.List;
 import java.util.Map;
 
 public class DishService {
@@ -27,5 +28,9 @@ public class DishService {
 
     public Map<Dish, Integer> selectDishesForOrder(int orderId){
         return daoFactory.getDishDao().selectDishesForOrder(orderId);
+    }
+
+    public List<Dish> selectByDishType(String dishType){
+        return daoFactory.getDishDao().selectByDishType(dishType);
     }
 }

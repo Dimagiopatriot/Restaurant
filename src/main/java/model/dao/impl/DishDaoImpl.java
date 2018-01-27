@@ -29,6 +29,7 @@ public class DishDaoImpl implements DishDao {
 
     //queries
     private final static String SELECT_BY_ID_QUERY = "select * from dish where id=?";
+    private final static String SELECT_BY_DISH_TYPE = "select * from dish where dish_type = ?;";
     private final static String UPDATE_QUERY = "update dish set name=?, description=?, gram=?, price=?, dish_type=? " +
             "where id=?;";
     private final static String INSERT_QUERY = "insert into dish(name, description, gram, price, dish_type) " +
@@ -158,6 +159,27 @@ public class DishDaoImpl implements DishDao {
             throw new DaoException();
         }
         return dishes;
+    }
+
+    @Override
+    public List<Dish> selectByDishType(String dishType) {
+        List<Dish> orders = new ArrayList<>();
+        try (JdbcConnection connection = connectionManager.getConnection();
+             PreparedStatement statement = connection.prepareStatement(SELECT_BY_DISH_TYPE)) {
+            statement.setString(1, dishType);
+            ResultSet resultSet = statement.executeQuery();
+            if (resultSet.isBeforeFirst()) {
+                while (resultSet.next()) {
+                    Dish dish = buildDish(resultSet);
+                    orders.add(dish);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            LOGGER.info(BillDaoImpl.class.toString() + LogMessages.SELECT_ALL + e.getMessage());
+            throw new DaoException();
+        }
+        return orders;
     }
 
     private Dish buildDish(ResultSet resultSet) throws SQLException {
