@@ -106,18 +106,25 @@ public class BillService {
         Optional<Bill> billOptional = daoFactory.getBillDao().select(id);
         try {
             connectionManager.startTransaction();
-            if (billOptional.isPresent()){
+            if (billOptional.isPresent()) {
                 Bill bill = billOptional.get();
                 bill.setPortionsToDishMap(dishService.selectDishesForBill(bill.getId()));
             }
             connectionManager.commit();
-        } catch (DaoException e){
+        } catch (DaoException e) {
             connectionManager.commit();
             return billOptional;
         }
         return billOptional;
     }
 
+    public int selectCountOfBillsByStatus(Bill.Status status) {
+        return daoFactory.getBillDao().selectCountOfBillsByStatus(status);
+    }
+
+    public int selectCountOfBillsByUserId(int userId){
+        return daoFactory.getBillDao().selectCountOfBillsByUserId(userId);
+    }
     private void getDishesForBills(List<Bill> bills) {
         for (Bill bill : bills) {
             bill.setPortionsToDishMap(dishService.selectDishesForBill(bill.getId()));

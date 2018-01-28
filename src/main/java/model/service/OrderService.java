@@ -79,12 +79,12 @@ public class OrderService {
         Optional<Order> orderOptional = daoFactory.getOrderDao().select(id);
         try {
             connectionManager.startTransaction();
-            if (orderOptional.isPresent()){
+            if (orderOptional.isPresent()) {
                 Order order = orderOptional.get();
                 order.setPortionsToDishMap(dishService.selectDishesForOrder(order.getId()));
             }
             connectionManager.commit();
-        } catch (DaoException e){
+        } catch (DaoException e) {
             connectionManager.commit();
             return orderOptional;
         }
@@ -116,6 +116,14 @@ public class OrderService {
             return isCreated;
         }
         return isCreated;
+    }
+
+    public int selectCountOfOrdersByStatus(Order.Status status) {
+        return daoFactory.getOrderDao().selectCountOfOrdersByStatus(status);
+    }
+
+    public int selectCountOfOrdersByUserId(int userId) {
+        return daoFactory.getOrderDao().selectCountOfOrdersByUserId(userId);
     }
 
     private void getDishesForOrders(List<Order> orders) {
