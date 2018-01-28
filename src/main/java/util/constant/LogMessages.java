@@ -19,6 +19,7 @@ public interface LogMessages {
     String SELECT_BY_USER_ID = "selectByUserId()";
     String SELECT_FOR_BILL = "selectDishesForBill()";
     String SELECT_FOR_ORDER = "selectDishesForOrder()";
+    String SELECT_BY_DISH_TYPE = "selectByDishType()";
 
     String INSERT_INTO_M2O_DISH_BILL = "IntoManyToOneDishBillTable()";
     String INSERT_INTO_M2O_DISH_ORDER = "IntoManyToOneDishOrderTable()";

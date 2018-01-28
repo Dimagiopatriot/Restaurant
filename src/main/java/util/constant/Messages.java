@@ -8,5 +8,6 @@ public interface Messages {
     String NAME_ERROR = "messages.error.name";
     String SURNAME_ERROR = "messages.error.surname";
     String PHONE_ERROR = "messages.error.phone";
+    String ERROR_ORDER_UPDATE = "messages.error.order.updated";
     String STUB_ERROR_MESSAGE = " ";
 }

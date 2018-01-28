@@ -8,4 +8,7 @@ public interface Pages {
     String REGISTRATION = "registration";
     String MENU = "restaurant_menu";
     String USER = "user";
+    String CREATE_ORDER = "create_order";
+    String ORDERS = "orders";
+    String BILLS = "bills";
 }
