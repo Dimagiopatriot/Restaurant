@@ -15,4 +15,8 @@ public interface OrderDao extends GenericDao<Order> {
     boolean updateStatus(Order order);
 
     boolean updateBillPresence(Order order);
+
+    int selectCountOfOrdersByStatus(Order.Status status);
+
+    int selectCountOfOrdersByUserId(int userId);
 }

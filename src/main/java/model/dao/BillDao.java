@@ -13,4 +13,8 @@ public interface BillDao extends GenericDao<Bill> {
     List<Bill> selectAll(int offset, int limit);
 
     List<Bill> selectByUserId(int userId, int offset, int limit);
+
+    int selectCountOfBillsByStatus(Bill.Status status);
+
+    int selectCountOfBillsByUserId(int userId);
 }

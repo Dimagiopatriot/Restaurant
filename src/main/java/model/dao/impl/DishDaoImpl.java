@@ -176,7 +176,7 @@ public class DishDaoImpl implements DishDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            LOGGER.info(BillDaoImpl.class.toString() + LogMessages.SELECT_ALL + e.getMessage());
+            LOGGER.info(BillDaoImpl.class.toString() + LogMessages.SELECT_BY_DISH_TYPE + e.getMessage());
             throw new DaoException();
         }
         return orders;

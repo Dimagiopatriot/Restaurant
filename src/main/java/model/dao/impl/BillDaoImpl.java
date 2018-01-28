@@ -32,6 +32,8 @@ public class BillDaoImpl implements BillDao {
     private final static String SELECT_BY_STATUS_QUERY = "select * from bill where status=?";
     private final static String SELECT_ALL_QUERY = "select * from bill";
     private final static String SELECT_BY_USER_ID_QUERY = "select * from bill where id in (select id from `order` where user_id=?)";
+    private final static String SELECT_COUNT_OF_BILLS_BY_STATUS = "select count(*) from bill where status=?;";
+    private final static String SELECT_COUNT_OF_BILLS_BY_USER_ID = "select count(*) from bill where id in (select id from `order` where user_id=?);";
 
     private final static String UPDATE_QUERY = "update bill set status=?, total=? where id=?";
     private final static String UPDATE_STATUS_QUERY = "update bill set status=? where id=?";
@@ -137,6 +139,44 @@ public class BillDaoImpl implements BillDao {
             throw new DaoException();
         }
         return bills;
+    }
+
+    @Override
+    public int selectCountOfBillsByStatus(Bill.Status status) {
+        int billsCount = 0;
+        try(JdbcConnection connection = connectionManager.getConnection();
+            PreparedStatement statement =
+                    connection.prepareStatement(SELECT_COUNT_OF_BILLS_BY_STATUS)) {
+            statement.setString(1, status.toString());
+            ResultSet resultSet = statement.executeQuery();
+
+            resultSet.next();
+            billsCount = resultSet.getInt("count(*)");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            LOGGER.info(OrderDaoImpl.class.toString() + e.getMessage());
+            throw new DaoException();
+        }
+        return billsCount;
+    }
+
+    @Override
+    public int selectCountOfBillsByUserId(int userId) {
+        int ordersCount = 0;
+        try(JdbcConnection connection = connectionManager.getConnection();
+            PreparedStatement statement =
+                    connection.prepareStatement(SELECT_COUNT_OF_BILLS_BY_USER_ID)) {
+            statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+
+            resultSet.next();
+            ordersCount = resultSet.getInt("count(*)");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            LOGGER.info(OrderDaoImpl.class.toString() + e.getMessage());
+            throw new DaoException();
+        }
+        return ordersCount;
     }
 
     @Override
