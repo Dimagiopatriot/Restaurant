@@ -20,22 +20,32 @@
     </div>
     <c:forEach items="${entrees}" var="entree">
         <p>${entree.toString()}</p>
+        <br>
     </c:forEach>
 
     <div class="form-group">
         <h3 class="col-sm-6 control-label"><fmt:message key="menu.seconds"/>
     </div>
-    <c:forEach items="${seconds}" var="second"></c:forEach>
+    <c:forEach items="${seconds}" var="second">
+        <p>${second.toString()}</p>
+        <br>
+    </c:forEach>
 
     <div class="form-group">
         <h3 class="col-sm-6 control-label"><fmt:message key="menu.desserts"/>
     </div>
-    <c:forEach items="${desserts}" var="dessert"></c:forEach>
+    <c:forEach items="${desserts}" var="dessert">
+        <p>${dessert.toString()}</p>
+        <br>
+    </c:forEach>
 
     <div class="form-group">
         <h3 class="col-sm-6 control-label"><fmt:message key="menu.drinks"/>
     </div>
-    <c:forEach items="${drinks}" var="drink"></c:forEach>
+    <c:forEach items="${drinks}" var="drink">
+        <p>${drink.toString()}</p>
+        <br>
+    </c:forEach>
 </fieldset>
 <%@include file="footer.jsp" %>
 </body>
