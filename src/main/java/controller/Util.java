@@ -1,5 +1,10 @@
 package controller;
 
+import model.entity.Dish;
+import model.entity.Order;
+
+import java.util.Map;
+
 public class Util {
 
     public final static int LIMIT = 5;
@@ -8,7 +13,7 @@ public class Util {
     public static int[] pages(int ordersCount) {
         int[] pages;
         int pagesLength = ordersCount / Util.LIMIT;
-        if (ordersCount % Util.LIMIT > 0){
+        if (ordersCount % Util.LIMIT > 0) {
             pagesLength++;
         }
         pages = new int[pagesLength];
@@ -16,5 +21,20 @@ public class Util {
             pages[i] = i + 1;
         }
         return pages;
+    }
+
+    public static boolean checkSolvency(float total, float userCount) {
+        return (userCount - total) > 0.;
+    }
+
+    public static float calculateTotal(Order order) {
+        float result = 0f;
+        for (Map.Entry<Dish, Integer> entry : order.getPortionsToDishMap().entrySet()) {
+            int portions = entry.getValue();
+            float pricePerGram = entry.getKey().getPricePerPortion();
+            result += pricePerGram * portions;
+        }
+
+        return result;
     }
 }

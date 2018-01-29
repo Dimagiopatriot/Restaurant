@@ -1,7 +1,9 @@
 package controller.command;
 
+import controller.Util;
 import model.entity.Bill;
 import model.entity.Order;
+import util.constant.Pages;
 import util.constant.Parameters;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,11 +22,18 @@ public class OpenCreateBillPageCommand implements Command {
     @Override
     public String execute(HttpServletRequest request, HttpServletResponse response) {
         Bill bill = createFromRequest(request);
-        return null;
+        request.getSession().setAttribute(Parameters.BILL, bill);
+        return Pages.CREATE_BILL;
     }
 
     private Bill createFromRequest(HttpServletRequest request) {
-        return null;
+        Order order = (Order) request.getSession().getAttribute(Parameters.ORDER);
+        return new Bill.Builder()
+                .addId(order.getId())
+                .addStatus(Bill.Status.NOT_PAYED)
+                .addPortionsToDishMap(order.getPortionsToDishMap())
+                .addTotal(Util.calculateTotal(order))
+                .createBill();
     }
 
 }

@@ -35,7 +35,7 @@ public class GetClientBillsCommand implements Command {
         List<Bill> bills = billService.selectByUserId(userId, Util.MIN_OFFSET, Util.LIMIT);
         request.getSession().setAttribute(Parameters.PAGES_OF_RESULT, pages);
         request.getSession().setAttribute(Parameters.CURRENT_PAGE, 1);
-        request.getSession().setAttribute(Parameters.ORDERS, bills);
+        request.getSession().setAttribute(Parameters.BILLS, bills);
         return Pages.BILLS;
     }
 }

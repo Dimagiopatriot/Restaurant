@@ -11,4 +11,5 @@ public interface Pages {
     String CREATE_ORDER = "create_order";
     String ORDERS = "orders";
     String BILLS = "bills";
+    String CREATE_BILL = "create_bill";
 }
