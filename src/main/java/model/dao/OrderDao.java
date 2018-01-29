@@ -19,4 +19,6 @@ public interface OrderDao extends GenericDao<Order> {
     int selectCountOfOrdersByStatus(Order.Status status);
 
     int selectCountOfOrdersByUserId(int userId);
+
+    int selectCountOfAllOrders();
 }

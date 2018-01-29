@@ -34,6 +34,7 @@ public class OrderDaoImpl implements OrderDao {
     private final static String SELECT_ALL_QUERY = "select * from `order`";
     private final static String SELECT_BY_USER_ID_QUERY = "select * from `order` where user_id = ?";
     private final static String SELECT_COUNT_OF_ORDERS_BY_STATUS = "select count(*) from `order` where status=?;";
+    private final static String SELECT_COUNT_OF_ALL_ORDERS = "select count(*) from `order`";
     private final static String SELECT_COUNT_OF_ORDERS_BY_USER_ID = "select count(*) from `order` where user_id=?;";
 
     private final static String UPDATE_QUERY = "update `order` set status=?, has_bill=? where id=?";
@@ -154,6 +155,24 @@ public class OrderDaoImpl implements OrderDao {
             PreparedStatement statement =
                     connection.prepareStatement(SELECT_COUNT_OF_ORDERS_BY_USER_ID)) {
             statement.setInt(1, userId);
+            ResultSet resultSet = statement.executeQuery();
+
+            resultSet.next();
+            ordersCount = resultSet.getInt("count(*)");
+        } catch (SQLException e) {
+            e.printStackTrace();
+            LOGGER.info(OrderDaoImpl.class.toString() + e.getMessage());
+            throw new DaoException();
+        }
+        return ordersCount;
+    }
+
+    @Override
+    public int selectCountOfAllOrders(){
+        int ordersCount = 0;
+        try(JdbcConnection connection = connectionManager.getConnection();
+            PreparedStatement statement =
+                    connection.prepareStatement(SELECT_COUNT_OF_ALL_ORDERS)) {
             ResultSet resultSet = statement.executeQuery();
 
             resultSet.next();

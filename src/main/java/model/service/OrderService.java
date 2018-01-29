@@ -126,6 +126,10 @@ public class OrderService {
         return daoFactory.getOrderDao().selectCountOfOrdersByUserId(userId);
     }
 
+    public int selectCountOfAllOrders(){
+        return daoFactory.getOrderDao().selectCountOfAllOrders();
+    }
+
     private void getDishesForOrders(List<Order> orders) {
         for (Order order : orders) {
             order.setPortionsToDishMap(dishService.selectDishesForOrder(order.getId()));

@@ -125,6 +125,11 @@ public class BillService {
     public int selectCountOfBillsByUserId(int userId){
         return daoFactory.getBillDao().selectCountOfBillsByUserId(userId);
     }
+
+    public int selectCountOfAllBills(){
+        return daoFactory.getBillDao().selectCountOfAllBils();
+    }
+
     private void getDishesForBills(List<Bill> bills) {
         for (Bill bill : bills) {
             bill.setPortionsToDishMap(dishService.selectDishesForBill(bill.getId()));

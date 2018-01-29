@@ -17,4 +17,6 @@ public interface BillDao extends GenericDao<Bill> {
     int selectCountOfBillsByStatus(Bill.Status status);
 
     int selectCountOfBillsByUserId(int userId);
+
+    int selectCountOfAllBils();
 }

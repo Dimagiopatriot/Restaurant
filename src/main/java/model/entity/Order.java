@@ -11,7 +11,7 @@ public class Order {
     private int userId;
 
     public enum Status {
-        SEND_TO_KITCHEN, CANCELED, DONE;
+        SEND_TO_KITCHEN, CANCELED, NEW, DONE;
 
         @Override
         public String toString() {
